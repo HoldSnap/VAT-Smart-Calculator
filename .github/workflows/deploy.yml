@@ -18,8 +18,6 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      PAGES_PAT: ${{ secrets.PAGES_PAT }}
 
     steps:
       - name: Checkout repository
@@ -37,19 +35,11 @@ jobs:
       - name: Build project
         run: npm run build
 
-      - name: Setup Pages with auto-enable
-        if: ${{ env.PAGES_PAT != '' }}
-        uses: actions/configure-pages@v5
-        with:
-          token: ${{ env.PAGES_PAT }}
-          enablement: true
-
       - name: Setup Pages
-        if: ${{ env.PAGES_PAT == '' }}
         uses: actions/configure-pages@v5
 
       - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v4
         with:
           path: dist
 
